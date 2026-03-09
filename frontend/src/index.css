@@ -1,0 +1,431 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Color Palette & Variables */
+:root {
+  --slate-900: #0f172a;
+  --slate-800: #1e293b;
+  --slate-700: #334155;
+  --slate-400: #94a3b8;
+  --indigo-500: #6366f1;
+  --indigo-600: #4f46e5;
+  --indigo-highlight: rgba(99, 102, 241, 0.2);
+  --text-main: #f8fafc;
+  --text-muted: #cbd5e1;
+  --border-radius: 8px;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+body {
+  background-color: var(--slate-900);
+  color: var(--text-main);
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* Dashboard Layout */
+.dashboard-container {
+  display: flex;
+  height: 100%;
+  width: 100vw;
+  padding: 16px;
+  gap: 16px;
+}
+
+/* Panel Defaults */
+.left-panel,
+.center-panel,
+.right-panel {
+  background-color: var(--slate-800);
+  border: 1px solid var(--slate-700);
+  border-radius: var(--border-radius);
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Left Panel: Data Extraction (approx 25-30% width) */
+.left-panel {
+  flex: 0 0 460px;
+  flex-direction: row;
+  padding: 0;
+  overflow: hidden;
+}
+
+.left-sidebar {
+  width: 150px;
+  background-color: rgba(0, 0, 0, 0.15);
+  border-right: 1px solid var(--slate-700);
+  display: flex;
+  flex-direction: column;
+  padding: 24px 0;
+  overflow-y: auto;
+}
+
+.left-sidebar-tab {
+  background: transparent;
+  color: var(--text-muted);
+  border: none;
+  text-align: left;
+  padding: 12px 24px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+.left-sidebar-tab:hover {
+  color: var(--text-main);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.left-sidebar-tab.active {
+  color: var(--indigo-500);
+  background: rgba(99, 102, 241, 0.1);
+}
+
+.left-sidebar-tab.active::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background-color: var(--indigo-500);
+}
+
+.left-content {
+  flex: 1;
+  padding: 24px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.left-content h2 {
+  font-size: 1.125rem;
+  font-weight: 600;
+  margin-bottom: 24px;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  font-size: 0.875rem;
+  color: var(--text-muted);
+  margin-bottom: 8px;
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  background-color: var(--slate-900);
+  border: 1px solid var(--slate-700);
+  color: var(--text-main);
+  padding: 10px 12px;
+  border-radius: 6px;
+  font-size: 0.875rem;
+  transition: border-color 0.2s ease;
+  resize: none;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: var(--indigo-500);
+}
+
+/* Center Panel: Document Viewer (Flexible width) */
+.center-panel {
+  flex: 1;
+  background-color: var(--slate-900);
+  /* Darker backdrop for the doc */
+  align-items: center;
+  overflow-y: auto;
+}
+
+.document-viewer {
+  background-color: #ffffff;
+  color: #000000;
+  width: 100%;
+  max-width: 800px;
+  height: 100%;
+  padding: 40px;
+  border-radius: 4px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.highlight {
+  background-color: var(--indigo-highlight);
+  border-bottom: 2px solid var(--indigo-500);
+}
+
+/* Right Panel: Upload Area (approx 35% width) */
+.right-panel {
+  flex: 0 0 400px;
+  justify-content: center;
+  align-items: center;
+}
+
+.upload-card {
+  width: 100%;
+  text-align: center;
+}
+
+.upload-card h2 {
+  font-size: 1.5rem;
+  margin-bottom: 8px;
+}
+
+.upload-card p {
+  color: var(--slate-400);
+  margin-bottom: 24px;
+}
+
+.drop-zone {
+  border: 2px dashed var(--slate-700);
+  border-radius: var(--border-radius);
+  padding: 48px 24px;
+  margin-bottom: 24px;
+  background-color: var(--slate-900);
+  transition: border-color 0.2s ease, background-color 0.2s ease;
+  cursor: pointer;
+}
+
+.drop-zone:hover,
+.drop-zone.dragging {
+  border-color: var(--indigo-500);
+}
+
+.drop-zone.dragging {
+  background-color: rgba(99, 102, 241, 0.1);
+}
+
+.upload-icon {
+  width: 48px;
+  height: 48px;
+  color: var(--slate-400);
+  margin-bottom: 16px;
+  display: inline-block;
+}
+
+.primary-btn {
+  width: 100%;
+  background-color: var(--indigo-500);
+  color: white;
+  border: none;
+  padding: 12px;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.primary-btn:hover {
+  background-color: var(--indigo-600);
+}
+
+.center-panel iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+  border-radius: 4px;
+  background-color: white;
+}
+
+/* Initial Upload Screen Modal */
+:root {
+  --app-bg: #0d111a;
+  /* Outer app background */
+  --card-bg: #1d2333;
+  /* Lighter panel background */
+  --card-border: #2c344a;
+  /* Subtle outer border */
+  --dashed-border: #3b455e;
+  --btn-bg: #5c59f0;
+  /* Indigo button */
+  --btn-hover: #4e4ad9;
+
+  /* Badge Colors */
+  --pdf-color: #ef4444;
+  --doc-color: #3b82f6;
+  --docx-color: #1d4ed8;
+}
+
+/* Wrapper to center the modal */
+.upload-modal-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+  padding: 24px;
+  background-color: transparent;
+}
+
+/* Main Card */
+.upload-card-modal {
+  background-color: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 12px;
+  padding: 32px;
+  width: 100%;
+  max-width: 520px;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.4), 0 10px 10px -5px rgba(0, 0, 0, 0.2);
+}
+
+/* Header */
+.upload-modal-header {
+  text-align: center;
+  margin-bottom: 28px;
+}
+
+.upload-modal-header h2 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin: 0 0 8px 0;
+  letter-spacing: -0.01em;
+  color: var(--text-main);
+}
+
+.upload-modal-header p {
+  font-size: 1.05rem;
+  color: var(--text-muted);
+  margin: 0;
+}
+
+/* Drop Zone */
+.drop-zone-modal {
+  border: 1.5px dashed var(--dashed-border);
+  border-radius: 10px;
+  padding: 40px 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  cursor: pointer;
+  margin-bottom: 24px;
+  background-color: transparent;
+  transition: all 0.2s ease;
+}
+
+.drop-zone-modal:hover,
+.drop-zone-modal.dragging {
+  border-color: var(--btn-bg);
+  background-color: rgba(92, 89, 240, 0.05);
+}
+
+.file-outline-icon {
+  width: 54px;
+  height: 54px;
+  color: var(--text-muted);
+  margin-bottom: 20px;
+}
+
+.drop-text {
+  font-size: 1.05rem;
+  color: var(--text-main);
+  line-height: 1.5;
+  margin: 0 0 20px 0;
+}
+
+/* File Type Badges */
+.file-badges {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.badge {
+  color: #ffffff;
+  font-size: 0.65rem;
+  font-weight: 600;
+  padding: 6px 8px;
+  border-radius: 4px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  position: relative;
+}
+
+.badge-pdf {
+  background-color: var(--pdf-color);
+}
+
+.badge-doc {
+  background-color: var(--doc-color);
+}
+
+.badge-docx {
+  background-color: var(--docx-color);
+}
+
+/* Solid Upload Button */
+.upload-btn-modal {
+  background-color: var(--btn-bg);
+  color: var(--text-main);
+  width: 100%;
+  padding: 14px;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.upload-btn-modal:hover {
+  background-color: var(--btn-hover);
+}
+
+/* Global App Header */
+.app-top-header {
+  flex-shrink: 0;
+  width: 100%;
+  height: 70px;
+  display: flex;
+  align-items: center;
+  padding: 0 32px;
+  background-color: #0b0f19;
+  border-bottom: 1px solid var(--dashed-border);
+  z-index: 100;
+}
+
+.app-top-header .brand {
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  font-size: 1.15rem;
+  letter-spacing: 0.15em;
+  color: #ffffff;
+  margin: 0;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+}
+
+.app-top-header .brand-sub {
+  color: var(--btn-bg);
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  margin-left: 12px;
+  background: rgba(92, 89, 240, 0.15);
+  padding: 4px 10px;
+  border-radius: 4px;
+}
